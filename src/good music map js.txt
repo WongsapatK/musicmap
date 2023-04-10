@@ -1,0 +1,76 @@
+import React, { Component } from "react";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
+import "./MusicMap.css";
+import songs from "./songs.json";
+
+class MusicMap extends Component {
+  state = {
+    lat: 13.738109,
+    lng: 100.583227,
+    zoom: 15,
+  };
+
+  render() {
+    const { lat, lng, zoom } = this.state;
+
+    const markerIcon = (song) => {
+      return L.icon({
+        iconUrl: song.image,
+        iconSize: [32, 32],
+        iconAnchor: [16, 32],
+        popupAnchor: [0, -34],
+      });
+    };
+
+    const adjustPopupHeight = (popup) => {
+      setTimeout(() => {
+        popup._adjustPan();
+      });
+    };
+
+    return (
+      <MapContainer
+        center={[lat, lng]}
+        zoom={zoom}
+        maxZoom={18}
+        minZoom={5}
+        className="map"
+      >
+        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+        {songs.map((song) => (
+          <Marker
+            key={`${song.title}-${song.artist}`}
+            position={[song.latitude, song.longitude]}
+            icon={markerIcon(song)}
+          >
+            <Popup
+              autoPanPaddingBottomRight={[50, 50]}
+              onOpen={(e) => adjustPopupHeight(e.target)}
+            >
+              <div className="popup-container">
+                <div className="popup-image-container">
+                  <img src={song.image} alt="Album Cover" />
+                </div>
+                <div className="popup-text-container">
+                  <h2>{song.title}</h2>
+                  <p className="popup-text">Artist: {song.artist}</p>
+                  <p className="popup-text">Album: {song.album}</p>
+                  <p className="popup-text-lyrics">Related Lyrics: <br></br>
+                    {song.related_lyrics}
+                  </p>
+                  <a href={song.lyrics}>Lyrics</a>
+                  <br />
+                  <a href={song.video}>Music Video</a>
+                </div>
+              </div>
+            </Popup>
+          </Marker>
+        ))}
+      </MapContainer>
+    );
+  }
+}
+
+export default MusicMap;
