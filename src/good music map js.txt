@@ -4,6 +4,7 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "./MusicMap.css";
 import songs from "./songs.json";
+import ReactGA from "react-ga";
 
 class MusicMap extends Component {
   state = {
@@ -11,6 +12,11 @@ class MusicMap extends Component {
     lng: 100.54716136928202,
     zoom: 12.5,
   };
+
+  componentDidMount() {
+    ReactGA.initialize("G-0CJ9NC2NPB");
+    ReactGA.pageview(window.location.pathname + window.location.search);
+  }
 
   render() {
     const { lat, lng, zoom } = this.state;

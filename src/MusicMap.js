@@ -18,6 +18,20 @@ class MusicMap extends Component {
     ReactGA.pageview(window.location.pathname + window.location.search);
   }
 
+  handleSongSelect = (song) => {
+    const { latitude, longitude, title, artist } = song;
+    ReactGA.event({
+      category: "Song",
+      action: "Click",
+      label: `${title} - ${artist}`,
+    });
+    this.setState({
+      lat: latitude,
+      lng: longitude,
+      zoom: 17,
+    });
+  };
+
   render() {
     const { lat, lng, zoom } = this.state;
 
@@ -50,6 +64,7 @@ class MusicMap extends Component {
             key={`${song.title}-${song.artist}`}
             position={[song.latitude, song.longitude]}
             icon={markerIcon(song)}
+            onClick={() => this.handleSongSelect(song)}
           >
             <Popup
               autoPanPaddingBottomRight={[50, 50]}
