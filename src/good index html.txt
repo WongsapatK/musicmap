@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-0CJ9NC2NPB"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-0CJ9NC2NPB');
-</script>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -34,14 +25,6 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>Music Map</title>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-364179104"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-364179104');
-    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>

@@ -7,9 +7,9 @@ import songs from "./songs.json";
 
 class MusicMap extends Component {
   state = {
-    lat: 13.738109,
-    lng: 100.583227,
-    zoom: 15,
+    lat: 13.746447064034877,
+    lng: 100.54716136928202,
+    zoom: 12.5,
   };
 
   render() {
@@ -57,12 +57,13 @@ class MusicMap extends Component {
                   <h2>{song.title}</h2>
                   <p className="popup-text">Artist: {song.artist}</p>
                   <p className="popup-text">Album: {song.album}</p>
-                  <p className="popup-text-lyrics">Related Lyrics: <br></br>
+                  <p className="popup-text-lyrics">
+                    Related Lyrics: <br></br>
                     {song.related_lyrics}
                   </p>
                   <a href={song.lyrics}>Lyrics</a>
                   <br />
-                  <a href={song.video}>Music Video</a>
+                  <a href={song.video}>Listen to the Song</a>
                 </div>
               </div>
             </Popup>
