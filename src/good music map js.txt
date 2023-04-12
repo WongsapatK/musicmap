@@ -19,16 +19,15 @@ class MusicMap extends Component {
   }
 
   handleSongSelect = (song) => {
-    const { latitude, longitude, title, artist } = song;
-    ReactGA.event({
-      category: "Song",
-      action: "Click",
-      label: `${title} - ${artist}`,
-    });
+    const { latitude, longitude } = song;
     this.setState({
       lat: latitude,
       lng: longitude,
       zoom: 17,
+    });
+
+    window.gtag("event", "song_clicked", {
+      item_name: `${song.title}-${song.artist}`,
     });
   };
 

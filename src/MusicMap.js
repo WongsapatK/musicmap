@@ -18,18 +18,26 @@ class MusicMap extends Component {
     ReactGA.pageview(window.location.pathname + window.location.search);
   }
 
-  handleSongSelect = (song) => {
-    const { latitude, longitude } = song;
-    this.setState({
-      lat: latitude,
-      lng: longitude,
-      zoom: 17,
-    });
+handleSongSelect = (song) => {
+  const { latitude, longitude } = song;
+  this.setState({
+    lat: latitude,
+    lng: longitude,
+    zoom: 17,
+  });
 
-    window.gtag("event", "song_clicked", {
+  console.log("Sending GA4 event:", {
+    name: "song_clicked",
+    params: {
       item_name: `${song.title}-${song.artist}`,
-    });
-  };
+    },
+  });
+
+  window.gtag("event", "song_clicked", {
+    item_name: `${song.title}-${song.artist}`,
+  });
+};
+
 
   render() {
     const { lat, lng, zoom } = this.state;
