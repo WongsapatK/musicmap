@@ -33,8 +33,8 @@ class MusicMap extends Component {
       ReactGA.initialize("G-0CJ9NC2NPB");
       ReactGA.pageview(window.location.pathname + window.location.search);
       ReactGA.event({
-        category: "Song",
-        action: "Clicked",
+        category: "song",
+        action: "clicked",
         label: `${song.title}-${song.artist}`,
       });
     }
