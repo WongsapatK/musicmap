@@ -16,6 +16,7 @@ class MusicMap extends Component {
   componentDidMount() {
     ReactGA.initialize("G-0CJ9NC2NPB");
     ReactGA.pageview(window.location.pathname + window.location.search);
+    console.log(window.gtag);
   }
 
   handleSongSelect = (song) => {
@@ -26,9 +27,17 @@ class MusicMap extends Component {
       zoom: 17,
     });
 
-    window.gtag("event", "song_clicked", {
-      item_name: `${song.title}-${song.artist}`,
-    });
+    console.log("Song clicked:", song);
+
+    if (typeof ReactGA === "object") {
+      ReactGA.initialize("G-0CJ9NC2NPB");
+      ReactGA.pageview(window.location.pathname + window.location.search);
+      ReactGA.event({
+        category: "Song",
+        action: "Clicked",
+        label: `${song.title}-${song.artist}`,
+      });
+    }
   };
 
   render() {
@@ -63,7 +72,9 @@ class MusicMap extends Component {
             key={`${song.title}-${song.artist}`}
             position={[song.latitude, song.longitude]}
             icon={markerIcon(song)}
-            onClick={() => this.handleSongSelect(song)}
+            eventHandlers={{
+              click: () => this.handleSongSelect(song),
+            }}
           >
             <Popup
               autoPanPaddingBottomRight={[50, 50]}
