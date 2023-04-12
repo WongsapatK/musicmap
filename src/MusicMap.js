@@ -27,12 +27,7 @@ class MusicMap extends Component {
       zoom: 17,
     });
 
-    console.log("Sending GA4 event:", {
-      name: "song_clicked",
-      params: {
-        item_name: `${song.title}-${song.artist}`,
-      },
-    });
+    console.log("Song clicked:", song);
 
     if (typeof ReactGA === "object") {
       ReactGA.initialize("G-0CJ9NC2NPB");
@@ -44,7 +39,7 @@ class MusicMap extends Component {
       });
     }
   };
-  
+
   render() {
     const { lat, lng, zoom } = this.state;
 
@@ -77,7 +72,9 @@ class MusicMap extends Component {
             key={`${song.title}-${song.artist}`}
             position={[song.latitude, song.longitude]}
             icon={markerIcon(song)}
-            onClick={() => this.handleSongSelect(song)}
+            eventHandlers={{
+              click: () => this.handleSongSelect(song),
+            }}
           >
             <Popup
               autoPanPaddingBottomRight={[50, 50]}
